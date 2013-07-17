@@ -24,4 +24,14 @@ User-defined settings:
 
 On any file that implements BusObject (or when built complains about lacking the
 symbol typeinfo) go to the Target's Build Phases tab and in the Compile
-Sources menu add `-fno-rtti` to its Compiler Flag
+Sources menu add `-fno-rtti` to its Compiler Flag.
+
+Threading
+---------
+
+The ways OpenFrameworks and Alljoyn handle their threads are occasionally incompatible
+and can cause some strange errors. On the client side, everything should work out of the box.
+On the server side, things get more complicated. Unless the service is run in a separate thread,
+it is unable to handle method calls to its objects. The easiest way to get it to work is wrapping
+all code related to the service in an object implementing `ofThread`, which can then be used
+in your main code to run the service.
